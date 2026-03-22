@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { AreaChart, Area, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid } from "recharts"
 import axios from "axios"
 
-const API = "stockbot-production-97d8.up.railway.app"
+const API = "https://stock-bot-pvez.onrender.com/"
 
 const STRATEGIES = {
   ma_crossover: {
