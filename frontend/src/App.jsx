@@ -303,7 +303,8 @@ export default function App() {
           <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <label style={labelStyle}>Ticker</label>
-              <input value={btTicker} onChange={e => setBtTicker(e.target.value.toUpperCase())} style={inputStyle} />
+              <input value={btTicker} onChange={e => setBtTicker(e.target.value.toUpperCase())} placeholder="Ticker (e.g. AAPL)" style={inputStyle} />
+              
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <label style={labelStyle}>Strategy</label>
@@ -600,7 +601,7 @@ export default function App() {
           <div style={{ display: "flex", gap: 16, marginBottom: 24, alignItems: "flex-end", flexWrap: "wrap" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <label style={labelStyle}>Ticker</label>
-              <input value={mcTicker} onChange={e => setMcTicker(e.target.value.toUpperCase())} style={inputStyle} />
+              <input value={mcTicker} onChange={e => setMcTicker(e.target.value.toUpperCase())} placeholder="Ticker (e.g. AAPL)" style={inputStyle} />
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <label style={labelStyle}>Horizon</label>
