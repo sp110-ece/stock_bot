@@ -43,7 +43,7 @@ const STRATEGIES = {
 
 export default function App() {
   const [tab, setTab] = useState("positions")
-  const [ticker, setTicker] = useState("AAPL")
+  const [ticker, setTicker] = useState("")
   const [horizon, setHorizon] = useState(30)
   const [prediction, setPrediction] = useState(null)
   const [predLoading, setPredLoading] = useState(false)
@@ -51,7 +51,7 @@ export default function App() {
   const [selectedStock, setSelectedStock] = useState(null)
   const [detailLoading, setDetailLoading] = useState(false)
   const [portfolio, setPortfolio] = useState(null)
-  const [tradeTicker, setTradeTicker] = useState("AAPL")
+  const [tradeTicker, setTradeTicker] = useState("")
   const [tradeShares, setTradeShares] = useState(1)
   const [tradeLoading, setTradeLoading] = useState(false)
   const [tradeError, setTradeError] = useState(null)
@@ -64,7 +64,7 @@ export default function App() {
   const [btLoading, setBtLoading] = useState(false)
   const [btError, setBtError] = useState(null)
   const [portfolioLoading, setPortfolioLoading] = useState(true)
-  const [mcTicker, setMcTicker] = useState("AAPL")
+  const [mcTicker, setMcTicker] = useState("")
   const [mcDays, setMcDays] = useState(252)
   const [mcSims, setMcSims] = useState(1000)
   const [mcResult, setMcResult] = useState(null)
@@ -118,15 +118,12 @@ export default function App() {
   }
 
   async function fetchTradePrice(ticker) {
-    console.log("fetching price for", ticker)
     if (!ticker || ticker.length < 2) return
     setTradePriceLoading(true)
     try {
       const res = await axios.get(`${API}/scanner/${ticker}`)
-      console.log("price result", res.data)
       setTradePrice(res.data.current_price)
     } catch (e) {
-      console.log("price error", e)
       setTradePrice(null)
     } finally {
       setTradePriceLoading(false)
