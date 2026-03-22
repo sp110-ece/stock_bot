@@ -6,7 +6,10 @@ app = FastAPI(title="Stock Predictor API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://stock-bot-sandy.vercel.app"
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
