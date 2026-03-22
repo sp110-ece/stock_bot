@@ -74,7 +74,8 @@ export default function App() {
   const [scanResult, setScanResult] = useState(null)
   const [scanLoading, setScanLoading] = useState(false)
   const [scanError, setScanError] = useState(null)
-
+  const [tradePrice, setTradePrice] = useState(null)
+  const [tradePriceLoading, setTradePriceLoading] = useState(false)
   
 
   useEffect(() => {
@@ -115,6 +116,21 @@ export default function App() {
       setMcLoading(false)
     }
   }
+
+  async function fetchTradePrice(ticker) {
+  if (!ticker || ticker.length < 1) return
+  setTradePriceLoading(true)
+  try {
+    const res = await axios.get(`${API}/predict/${ticker}?horizon=1`)
+    setTradePrice(res.data.last_price)
+  } catch (e) {
+    setTradePrice(null)
+  } finally {
+    setTradePriceLoading(false)
+  }
+}
+
+
   async function fetchPortfolio() {
     setPortfolioLoading(true)
     try {
@@ -534,10 +550,34 @@ export default function App() {
           <div style={{ background: "#1a1a1a", borderRadius: 12, padding: 24, marginBottom: 16 }}>
             <h2 style={{ fontSize: 16, fontWeight: 500, marginBottom: 20 }}>Execute Trade</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <input value={tradeTicker} onChange={e => setTradeTicker(e.target.value.toUpperCase())}
+              <input value={tradeTicker} onChange={e => {
+                setTradeTicker(e.target.value.toUpperCase())
+                if (e.target.value.length >= 1) fetchTradePrice(e.target.value.toUpperCase())
+              }}
                 placeholder="Ticker (e.g. AAPL)" style={{ ...inputStyle, width: "100%", boxSizing: "border-box" }} />
+              
               <input type="number" value={tradeShares} onChange={e => setTradeShares(e.target.value)}
                 placeholder="Shares" min="0.01" step="0.01" style={{ ...inputStyle, width: "100%", boxSizing: "border-box" }} />
+
+              {tradePriceLoading && (
+                <p style={{ color: "#666", fontSize: 13 }}>Fetching price...</p>
+              )}
+
+              {tradePrice && (
+                <div style={{ background: "#111", borderRadius: 8, padding: "12px 16px", display: "flex", justifyContent: "space-between" }}>
+                  <div>
+                    <p style={{ color: "#666", fontSize: 11, marginBottom: 4 }}>CURRENT PRICE</p>
+                    <p style={{ fontWeight: 600 }}>${tradePrice}</p>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <p style={{ color: "#666", fontSize: 11, marginBottom: 4 }}>TOTAL COST</p>
+                    <p style={{ fontWeight: 600, color: "#6366f1" }}>
+                      ${(tradePrice * Number(tradeShares)).toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              )}
+
               <div style={{ display: "flex", gap: 8 }}>
                 <button onClick={() => executeTrade("buy")} disabled={tradeLoading}
                   style={{ ...btnStyle(tradeLoading), flex: 1, background: "#22c55e" }}>Buy</button>
