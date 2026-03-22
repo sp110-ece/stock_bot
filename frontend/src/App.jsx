@@ -118,17 +118,20 @@ export default function App() {
   }
 
   async function fetchTradePrice(ticker) {
-  if (!ticker || ticker.length < 1) return
-  setTradePriceLoading(true)
-  try {
-    const res = await axios.get(`${API}/predict/${ticker}?horizon=1`)
-    setTradePrice(res.data.last_price)
-  } catch (e) {
-    setTradePrice(null)
-  } finally {
-    setTradePriceLoading(false)
+    console.log("fetching price for", ticker)
+    if (!ticker || ticker.length < 2) return
+    setTradePriceLoading(true)
+    try {
+      const res = await axios.get(`${API}/scanner/${ticker}`)
+      console.log("price result", res.data)
+      setTradePrice(res.data.current_price)
+    } catch (e) {
+      console.log("price error", e)
+      setTradePrice(null)
+    } finally {
+      setTradePriceLoading(false)
+    }
   }
-}
 
 
   async function fetchPortfolio() {
