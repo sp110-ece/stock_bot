@@ -52,7 +52,7 @@ export default function App() {
   const [detailLoading, setDetailLoading] = useState(false)
   const [portfolio, setPortfolio] = useState(null)
   const [tradeTicker, setTradeTicker] = useState("")
-  const [tradeShares, setTradeShares] = useState(1)
+  const [tradeShares, setTradeShares] = useState("")
   const [tradeLoading, setTradeLoading] = useState(false)
   const [tradeError, setTradeError] = useState(null)
   const [positionSignals, setPositionSignals] = useState([])
