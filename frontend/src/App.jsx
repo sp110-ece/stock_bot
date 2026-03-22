@@ -56,7 +56,7 @@ export default function App() {
   const [tradeLoading, setTradeLoading] = useState(false)
   const [tradeError, setTradeError] = useState(null)
   const [positionSignals, setPositionSignals] = useState([])
-  const [btTicker, setBtTicker] = useState("AAPL")
+  const [btTicker, setBtTicker] = useState("")
   const [btStrategy, setBtStrategy] = useState("ma_crossover")
   const [btPeriod, setBtPeriod] = useState("2y")
   const [btParams, setBtParams] = useState({ short_window: 20, long_window: 50 })
